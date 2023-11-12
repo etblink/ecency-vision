@@ -1,27 +1,23 @@
 import React, { Component } from "react";
-
-import { Modal, Form, FormControl } from "react-bootstrap";
-
 import numeral from "numeral";
-
 import { History } from "history";
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
-
 import BaseComponent from "../base";
 import ProfileLink from "../profile-link";
 import UserAvatar from "../user-avatar";
 import LinearProgress from "../linear-progress";
-import Pagination from "../pagination";
-
-import { Proposal, getProposalVotes, getAccounts } from "../../api/hive";
-
+import Pagination from "@ui/pagination";
+import { getAccounts, getProposalVotes, Proposal } from "../../api/hive";
 import parseAsset from "../../helper/parse-asset";
 import accountReputation from "../../helper/account-reputation";
-
 import { _t } from "../../i18n";
 import "./_index.scss";
+import { Modal, ModalBody, ModalHeader, ModalTitle } from "@ui/modal";
+import { FormControl } from "@ui/input";
+import { List, ListItem } from "@ui/list";
+import { Badge } from "@ui/badge";
 
 interface Voter {
   name: string;
@@ -110,7 +106,7 @@ export class ProposalVotesDetail extends BaseComponent<Props, State> {
     }
   };
 
-  sortChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+  sortChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.stateSet({ sort: e.target.value as SortOption });
   };
 
@@ -174,6 +170,7 @@ export class ProposalVotesDetail extends BaseComponent<Props, State> {
       this.load();
     }
   };
+
   render() {
     const { loading, voters, page, sort, originalVoters } = this.state;
     if (loading && !voters.length && !originalVoters.length) {
@@ -196,44 +193,45 @@ export class ProposalVotesDetail extends BaseComponent<Props, State> {
       <>
         {loading && <LinearProgress />}
 
-        <div className="voters-list">
-          <div className="list-body">
+        <div className="voters-list mb-4">
+          <List grid={true} inline={true} defer={true}>
             {sliced && sliced.length > 0 ? (
               sliced.map((x) => {
                 const strHp = numeral(x.hp).format("0.00,");
                 const strProxyHp = numeral(x.proxyHp).format("0.00,");
 
                 return (
-                  <div className="list-item" key={x.name}>
-                    <div className="item-main">
-                      {ProfileLink({
-                        ...this.props,
-                        username: x.name,
-                        children: <UserAvatar username={x.name} size="small" />
-                      })}
-
-                      <div className="item-info">
+                  <ListItem styledDefer={true} className="!flex gap-3" key={x.name}>
+                    {ProfileLink({
+                      ...this.props,
+                      username: x.name,
+                      children: <UserAvatar username={x.name} size="small" />
+                    })}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
                         {ProfileLink({
                           ...this.props,
                           username: x.name,
                           children: <span className="item-name notranslate">{x.name}</span>
                         })}
-                        <span className="item-reputation">{accountReputation(x.reputation)}</span>
+                        <Badge className="text-xs leading-3">
+                          {accountReputation(x.reputation)}
+                        </Badge>
+                      </div>
+                      <div className="item-extra">
+                        <span>{`${strHp} HP`}</span>
+                        {x.proxyHp > 0 && (
+                          <>
+                            {" + "}
+                            <span>
+                              {`${strProxyHp} HP`}
+                              {" (proxy) "}
+                            </span>
+                          </>
+                        )}
                       </div>
                     </div>
-                    <div className="item-extra">
-                      <span>{`${strHp} HP`}</span>
-                      {x.proxyHp > 0 && (
-                        <>
-                          {" + "}
-                          <span>
-                            {`${strProxyHp} HP`}
-                            {" (proxy) "}
-                          </span>
-                        </>
-                      )}
-                    </div>
-                  </div>
+                  </ListItem>
                 );
               })
             ) : (
@@ -241,7 +239,7 @@ export class ProposalVotesDetail extends BaseComponent<Props, State> {
                 {loading ? _t("proposals.searching") : _t("proposals.no-results")}
               </div>
             )}
-          </div>
+          </List>
         </div>
 
         <div className="list-tools">
@@ -262,10 +260,10 @@ export class ProposalVotesDetail extends BaseComponent<Props, State> {
           </div>
           <div className="sorter">
             <span className="label">{_t("proposals.sort")}</span>
-            <Form.Control as="select" onChange={this.sortChanged} value={sort}>
+            <FormControl type="select" onChange={this.sortChanged} value={sort}>
               <option value="reputation">{_t("proposals.sort-reputation")}</option>
               <option value="hp">{_t("proposals.sort-hp")}</option>
-            </Form.Control>
+            </FormControl>
           </div>
         </div>
       </>
@@ -287,6 +285,7 @@ interface ProposalVotesState {
   voteCount: string;
   isMoreData: boolean;
 }
+
 export class ProposalVotes extends Component<ProposalVotesProps, ProposalVotesState> {
   state: ProposalVotesState = {
     searchText: "",
@@ -302,6 +301,7 @@ export class ProposalVotes extends Component<ProposalVotesProps, ProposalVotesSt
   checkIsMoreData = (check: boolean) => {
     this.setState({ isMoreData: check });
   };
+
   render() {
     const { proposal, onHide } = this.props;
     const { searchText, voteCount, isMoreData } = this.state;
@@ -315,13 +315,13 @@ export class ProposalVotes extends Component<ProposalVotesProps, ProposalVotesSt
         animation={false}
         className="proposal-votes-dialog"
       >
-        <Modal.Header closeButton={true} className="align-items-center px-0">
-          <Modal.Title>
+        <ModalHeader closeButton={true} className="items-center">
+          <ModalTitle>
             {modalTitle + _t("proposals.votes-dialog-title", { n: proposal.id })}
-          </Modal.Title>
-        </Modal.Header>
-        <Form.Group className="w-100 mb-3">
-          <Form.Control
+          </ModalTitle>
+        </ModalHeader>
+        <div className="w-full p-3 mb-3">
+          <FormControl
             type="text"
             placeholder={_t("proposals.search-placeholder")}
             value={searchText}
@@ -329,15 +329,15 @@ export class ProposalVotes extends Component<ProposalVotesProps, ProposalVotesSt
               this.setState({ searchText: e.target.value });
             }}
           />
-        </Form.Group>
-        <Modal.Body>
+        </div>
+        <ModalBody>
           <ProposalVotesDetail
             {...this.props}
             searchText={searchText}
             getVotesCount={this.getVotesCount}
             checkIsMoreData={this.checkIsMoreData}
           />
-        </Modal.Body>
+        </ModalBody>
       </Modal>
     );
   }

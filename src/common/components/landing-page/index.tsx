@@ -9,7 +9,6 @@ import Link from "../alink";
 
 import { apiBase } from "../../api/helper";
 import { handleInvalid, handleOnInput } from "../../util/input-util";
-import isElectron from "../../util/is-electron";
 import "./_index.scss";
 
 export default (props: any) => {
@@ -71,9 +70,7 @@ export default (props: any) => {
   const DevopsImg = apiBase(`/assets/talhasch.${global.canUseWebp ? "webp" : "jpeg"}`);
   const DesignGuru = apiBase(`/assets/dunsky.${global.canUseWebp ? "webp" : "jpeg"}`);
 
-  const LogoCircle = global.isElectron
-    ? "./img/logo-circle.svg"
-    : require("../../img/logo-circle.svg");
+  const LogoCircle = require("../../img/logo-circle.svg");
   const earnMoneyRef = useRef<HTMLDivElement>(null);
 
   const handleSubsccribe = async (e: FormEvent<HTMLDivElement>) => {
@@ -93,17 +90,14 @@ export default (props: any) => {
   };
 
   return (
-    <div
-      className={global.isElectron ? "landing-wrapper pt-5" : "landing-wrapper"}
-      id="landing-wrapper"
-    >
+    <div className="landing-wrapper" id="landing-wrapper">
       <div className="top-bg" />
       <div className="tob-bg-algae" />
       <div className="tob-bg-fishes" />
       <div className="sections first-section">
         <div className="text-container text-center">
           <h1>{_t("landing-page.welcome-text")}</h1>
-          <div className="d-flex flex-wrap justify-content-center align-items-center">
+          <div className="flex flex-wrap justify-center items-center">
             <p className="mb-3 w-88">{_t("landing-page.what-is-ecency")}</p>
           </div>
           <button className="get-started mx-auto" onClick={() => props.setStep(2)}>
@@ -120,10 +114,10 @@ export default (props: any) => {
       <div className="sections second-section" id="earn-money" ref={earnMoneyRef}>
         <div className="part-top">
           <div className="inner">
-            <img src={EarnMoney} alt="earn-money" loading="lazy" className="mx-auto m-sm-0" />
+            <img src={EarnMoney} alt="earn-money" loading="lazy" className="mx-auto sm:m-0" />
             <div className="text-group visible">
               <h2>{_t("landing-page.earn-money")}</h2>
-              <p className="mt-2 w-88 mb-5 mb-sm-0">
+              <p className="mt-2 w-88 mb-5 sm:mb-0">
                 {_t("landing-page.earn-money-block-chain-based")}
                 <span>
                   <Link to="/signup?referral=ecency">{_t("landing-page.join-us")}</Link>
@@ -156,7 +150,7 @@ export default (props: any) => {
       </div>
 
       <div className="sections third-section">
-        <div className="part-top pt-sm-5 pt-lg-0">
+        <div className="part-top sm:pt-5 lg:pt-0">
           <div className="inner">
             <div className="img-wrapper">
               <img
@@ -166,22 +160,11 @@ export default (props: any) => {
                 loading="lazy"
               />
             </div>
-            <div className="text-group visible mw-100">
+            <div className="text-group visible mw-full">
               <h2>{_t("landing-page.decentralization")}</h2>
               <p>
                 <span>
-                  <Link
-                    to={"https://hive.io"}
-                    target="_blank"
-                    onClick={() =>
-                      isElectron() &&
-                      window.open(
-                        "https://hive.io",
-                        "_blank",
-                        "top=500,left=200,frame=false,nodeIntegration=no"
-                      )
-                    }
-                  >
+                  <Link to={"https://hive.io"} target="_blank">
                     {_t("landing-page.hive-blockchain")}
                   </Link>
                 </span>{" "}
@@ -319,55 +302,14 @@ export default (props: any) => {
               <h2>{_t("landing-page.download-our-application")}</h2>
               <p className="mt-4">{_t("landing-page.download-our-application-desc-1")}</p>
               <p>{_t("landing-page.download-our-application-desc-2")}</p>
-              <Link
-                to={"https://desktop.ecency.com/"}
-                className="windows"
-                target="blank"
-                onClick={() =>
-                  isElectron() &&
-                  window.open(
-                    "https://desktop.ecency.com/",
-                    "_blank",
-                    "top=500,left=200,frame=false,nodeIntegration=no"
-                  )
-                }
-              >
-                <img
-                  src={props?.global?.theme === "day" ? DownloadWindows : DownloadWindowsWhite}
-                  alt="Download for Windows"
-                />
-                {_t("landing-page.download-for-windows")}
-              </Link>
-              <Link
-                to={"https://ios.ecency.com/"}
-                target="blank"
-                onClick={() =>
-                  isElectron() &&
-                  window.open(
-                    "https://ios.ecency.com/",
-                    "_blank",
-                    "top=500,left=200,frame=false,nodeIntegration=no"
-                  )
-                }
-              >
+              <Link to={"https://ios.ecency.com/"} target="blank">
                 <img
                   src={props?.global?.theme === "day" ? DownloadIPhone : DownloadIPhoneWhite}
                   alt="Download for IOS"
                 />
                 {_t("landing-page.download-for-ios")}
               </Link>
-              <Link
-                to={"https://android.ecency.com/"}
-                target="blank"
-                onClick={() =>
-                  isElectron() &&
-                  window.open(
-                    "https://android.ecency.com/",
-                    "_blank",
-                    "top=500,left=200,frame=false,nodeIntegration=no"
-                  )
-                }
-              >
+              <Link to={"https://android.ecency.com/"} target="blank">
                 <img
                   src={props?.global?.theme === "day" ? DownloadAndroid : DownloadAndroidWhite}
                   alt="Download for Android"
@@ -380,9 +322,9 @@ export default (props: any) => {
       </div>
 
       <div className="sections fifth-section" id="about">
-        <div className="part-top pt-5 pt-sm-0">
+        <div className="part-top pt-5 sm:pt-0">
           <div className="inner">
-            <div className="text-group mt-sm-5 mt-lg-0">
+            <div className="text-group sm:mt-5 lg:mt-0">
               <h2>{_t("landing-page.our-history")}</h2>
               <p>{htmlParse(_t("landing-page.our-history-p-one"))}</p>
               <p>{_t("landing-page.our-history-p-two")}</p>
@@ -394,7 +336,7 @@ export default (props: any) => {
           <div className="inner">
             <img className="our-vision" src={OurVision} alt="Our Vision" loading="lazy" />
 
-            <div className="text-group pb-0 pb-sm-5 pb-md-0">
+            <div className="text-group pb-0 sm:pb-5 md:pb-0">
               <h2>{_t("landing-page.our-vision")}</h2>
               <p>{htmlParse(_t("landing-page.our-vision-p-one"))}</p>
               <p>{htmlParse(_t("landing-page.our-vision-p-two"))}</p>
@@ -423,7 +365,7 @@ export default (props: any) => {
             </div>
           </div>
         </div>
-        <div className="part-bottom pt-sm-5 pt-lg-auto">
+        <div className="part-bottom sm:pt-5 lg:pt-[auto]">
           <span className="left-fishes" />
           <img src={FooterMainFish} alt="Big fish" loading="lazy" className="main-fish" />
           <div className="inner">
@@ -484,58 +426,25 @@ export default (props: any) => {
 
                 <p>{_t("landing-page.subscribe-paragraph")}</p>
 
-                <div className="socials w-100 d-none d-lg-block">
-                  <ul className="p-0 m-0 d-flex justify-content-between w-50">
+                <div className="socials w-full hidden lg:block">
+                  <ul className="p-0 m-0 flex justify-between w-[50%]">
                     <li>
                       <Link to={"https://youtube.com/ecency"} target="_blank">
                         <img src={FooterYoutube} alt="youtube" />
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to={"https://twitter.com/ecency_official"}
-                        target="_blank"
-                        onClick={() =>
-                          isElectron() &&
-                          window.open(
-                            "https://twitter.com/ecency_official",
-                            "_blank",
-                            "top=500,left=200,frame=false,nodeIntegration=no"
-                          )
-                        }
-                      >
+                      <Link to={"https://twitter.com/ecency_official"} target="_blank">
                         <img src={FooterTwitter} alt="twitter" />
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to={"https://t.me/ecency"}
-                        target="_blank"
-                        onClick={() =>
-                          isElectron() &&
-                          window.open(
-                            "https://t.me/ecency",
-                            "_blank",
-                            "top=500,left=200,frame=false,nodeIntegration=no"
-                          )
-                        }
-                      >
+                      <Link to={"https://t.me/ecency"} target="_blank">
                         <img src={FooterTelegram} alt="telegram" />
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to={"https://discord.me/ecency"}
-                        target="_blank"
-                        onClick={() =>
-                          isElectron() &&
-                          window.open(
-                            "https://discord.me/ecency",
-                            "_blank",
-                            "top=500,left=200,frame=false,nodeIntegration=no"
-                          )
-                        }
-                      >
+                      <Link to={"https://discord.me/ecency"} target="_blank">
                         <img src={FooterDiscord} alt="discord" />
                       </Link>
                     </li>

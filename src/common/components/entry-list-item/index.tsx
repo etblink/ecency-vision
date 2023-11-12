@@ -24,7 +24,6 @@ import { ProfilePopover } from "../profile-popover";
 import { match } from "react-router-dom";
 import { getPost } from "../../api/bridge";
 import "./_index.scss";
-import useMountedState from "react-use/lib/useMountedState";
 import { useMappedStore } from "../../store/use-mapped-store";
 import useMount from "react-use/lib/useMount";
 import { useUnmount } from "react-use";
@@ -68,8 +67,6 @@ export function EntryListItem({
 
   const { global, activeUser, addAccount, updateEntry } = useMappedStore();
 
-  const isMounted = useMountedState();
-
   useMount(() => {
     document.getElementsByTagName("html")[0].style.position = "relative";
   });
@@ -98,6 +95,7 @@ export function EntryListItem({
       updateEntry({
         ..._entry,
         active_votes: votes,
+        stats: { ..._entry.stats, total_votes: votes.length },
         payout: newPayout,
         pending_payout_value: String(newPayout)
       });
@@ -115,14 +113,10 @@ export function EntryListItem({
   };
 
   const pinned = useMemo(() => pageAccount?.profile?.pinned, [pageAccount]);
-  const noImage = useMemo(
-    () => (global.isElectron ? "./img/noimage.svg" : require("../../img/noimage.svg")),
-    []
-  );
-  const nsfwImage = useMemo(
-    () => (global.isElectron ? "./img/nsfw.png" : require("../../img/nsfw.png")),
-    []
-  );
+  const noImage = require("../../img/noimage.svg");
+
+  const nsfwImage = require("../../img/nsfw.png");
+
   const isCrossPost = useMemo(() => !!entryProp.original_entry, [entryProp]);
   const entry = useMemo(() => entryProp.original_entry || entryProp, [entryProp]);
   const dateRelative = useMemo(() => dateToRelative(entry.created), [entry]);
@@ -181,9 +175,9 @@ export function EntryListItem({
       <div className="item-header">
         <div className="item-header-main">
           <div className="author-part" id={`${entry.author}-${entry.permlink}`}>
-            <div className="d-flex align-items-center" id={`${entry.author}-${entry.permlink}`}>
+            <div className="flex items-center" id={`${entry.author}-${entry.permlink}`}>
               <ProfileLink username={entry.author} history={history} addAccount={addAccount}>
-                <span className="author-avatar d-block">
+                <span className="author-avatar block">
                   <UserAvatar username={entry.author} size="small" />
                 </span>
               </ProfileLink>
@@ -209,12 +203,11 @@ export function EntryListItem({
           </span>
         </div>
         <div className="item-header-features">
-          {(community && !!entry.stats?.is_pinned) ||
-            (entry.permlink === pinned && (
-              <Tooltip content={_t("entry-list-item.pinned")}>
-                <span className="pinned">{pinSvg}</span>
-              </Tooltip>
-            ))}
+          {((community && !!entry.stats?.is_pinned) || entry.permlink === pinned) && (
+            <Tooltip content={_t("entry-list-item.pinned")}>
+              <span className="pinned">{pinSvg}</span>
+            </Tooltip>
+          )}
           {reBlogged && (
             <span className="reblogged">
               {repeatSvg} {_t("entry-list-item.reblogged", { n: reBlogged })}
@@ -234,7 +227,7 @@ export function EntryListItem({
         {nsfw && !showNsfw && !global.nsfw ? (
           <>
             <div className="item-image item-image-nsfw">
-              <img src={nsfwImage} alt={entry.title} />
+              <img className="w-full" src={nsfwImage} alt={entry.title} />
             </div>
             <div className="item-summary">
               <div className="item-nsfw">
@@ -283,7 +276,7 @@ export function EntryListItem({
         {showModMuted && showMuted ? (
           <>
             <div className="item-image item-image-nsfw">
-              <img src={nsfwImage} alt={entry.title} />
+              <img className="w-full" src={nsfwImage} alt={entry.title} />
             </div>
             <div className="item-summary">
               <div className="item-nsfw">

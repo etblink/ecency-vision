@@ -1,11 +1,22 @@
-@import "src/style/colors";
-@import "src/style/variables";
-@import "src/style/bootstrap_vars";
-@import "src/style/mixins";
+@import "src/style/vars_mixins";
 
 .notifications-modal {
-  .modal-body {
+  display: flex;
+  justify-content: end;
+  padding: 0 !important;
+
+  .ecency-modal-content {
     padding: 0 !important;
+    margin: 0 !important;
+    max-height: 100% !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .ecency-modal-body {
+    padding: 0 !important;
+    overflow: hidden;
+    height: 100%;
   }
 }
 
@@ -19,16 +30,18 @@
     justify-content: space-between;
 
     @include themify(day) {
-      border-bottom: 1px solid $white-three;
+      border-bottom: 1px solid;
+      @apply border-light-300;
     }
 
     @include themify(night) {
-      border-bottom: solid 1px $dark-two;
+      border-bottom: solid 1px;
+      @apply border-dark-200;
     }
 
     .list-filter {
       padding-left: 16px;
-      color: $dark-sky-blue;
+      @apply text-blue-dark-sky;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -70,18 +83,19 @@
     border-bottom: 1px solid #f5f5f5;
     display: flex;
     justify-content: space-between;
-    padding: 10px 0px;
+    padding: 10px 0;
 
     @include themify(day) {
-      border-color: $white-three;
+      @apply border-light-300;
     }
 
     @include themify(night) {
-      border-color: $dark-two;
+      @apply border-dark-200;
     }
 
     .status-button {
-      border: 1px solid $dark-sky-blue;
+      border: 1px solid;
+      @apply border-blue-dark-sky;
       margin-left: 10px;
       padding: 3px 10px;
       border-radius: 20px;
@@ -103,7 +117,7 @@
     }
 
     .status-button.active {
-      background-color: $dark-sky-blue;
+      @apply bg-blue-dark-sky;
     }
 
     .select-buttons {
@@ -112,9 +126,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       .select-svg {
         cursor: pointer;
-        border: 1px solid $dark-sky-blue;
+        border: 1px solid;
+        @apply border-blue-dark-sky;
         padding: 1px;
 
         svg {
@@ -124,16 +140,18 @@
         }
 
         &.active {
-          background-color: $dark-sky-blue;
+          @apply bg-blue-dark-sky;
 
           svg {
-            color: $white;
+            @apply text-white;
           }
         }
       }
+
       .mark-svg {
         cursor: pointer;
         margin-right: 10px;
+
         svg {
           display: block;
           height: 22px;
@@ -162,15 +180,17 @@
       }
 
       @include themify(day) {
-        border-bottom: 1px solid $white-four;
-        border-top: 1px solid $white-four;
-        color: $steel-grey;
+        border-bottom: 1px solid;
+        border-top: 1px solid;
+        @apply border-light-400;
+        @apply text-gray-steel;
       }
 
       @include themify(night) {
-        border-bottom: 1px solid $metallic-blue;
-        border-top: 1px solid $metallic-blue;
-        color: $powder-blue;
+        border-bottom: 1px solid;
+        border-top: 1px solid;
+        @apply border-blue-metallic;
+        @apply text-blue-powder;
       }
 
       &:first-child {
@@ -185,14 +205,15 @@
 
       &.not-read {
         @include themify(day) {
-          background-color: $duck-egg-blue;
+          @apply bg-blue-duck-egg;
+
           &:hover {
-            background-color: $powder-blue;
+            @apply bg-blue-powder;
           }
         }
 
         @include themify(night) {
-          background-color: darken($metallic-blue, 16);
+          @apply bg-blue-metallic-20;
         }
       }
 
@@ -222,7 +243,7 @@
           }
 
           .mark-read {
-            background: $dark-sky-blue;
+            @apply bg-blue-dark-sky;
             border-radius: 50%;
             cursor: pointer;
             height: 8px;
@@ -247,18 +268,18 @@
           width: calc(100% - 94px);
 
           @include themify(day) {
-            color: $charcoal-grey;
+            @apply text-gray-charcoal;
 
             a {
-              color: $charcoal-grey;
+              @apply text-gray-charcoal;
             }
           }
 
           @include themify(night) {
-            color: $pinkish-grey;
+            @apply text-gray-pinkish;
 
             a {
-              color: $pinkish-grey;
+              @apply text-gray-pinkish;
             }
           }
 
@@ -302,8 +323,9 @@
           .second-line {
             .reply-body,
             .transfer-memo {
-              border-left: 5px solid lighten($steel-grey, 30);
-              color: $steel-grey;
+              border-left: 5px solid;
+              @apply border-gray-steel-light-030;
+              @apply text-gray-steel;
               cursor: pointer;
               font-size: 13px;
               padding-left: 10px;
@@ -313,22 +335,22 @@
             .unfollow-label,
             .ignore-label {
               border-radius: 25px;
-              color: $white;
+              @apply text-white;
               display: inline-block;
               font-size: 12px;
               padding: 2px 6px;
             }
 
             .follow-label {
-              background: $dark-sky-blue;
+              @apply bg-blue-dark-sky;
             }
 
             .unfollow-label {
-              background: $silver;
+              @apply bg-silver;
             }
 
             .ignore-label {
-              background: $red3;
+              @apply bg-red-030;
             }
           }
         }
@@ -347,72 +369,84 @@
     }
   }
 }
+
 @media (min-width: 700px) {
   .modal-content {
     top: 10% !important;
     height: 90% !important;
   }
 }
+
 @media (min-width: 800px) {
   .modal-content {
     top: 7.5% !important;
     height: 90% !important;
   }
 }
+
 @media (min-width: 1000px) {
   .modal-content {
     top: 6% !important;
     height: 90% !important;
   }
 }
+
 @media (min-width: 1100px) {
   .modal-content {
     top: 5% !important;
     height: 90% !important;
   }
 }
+
 @media (min-width: 1300px) {
   .modal-content {
     top: 4.5% !important;
     height: 91.5% !important;
   }
 }
+
 @media (min-width: 1400px) {
   .modal-content {
     top: 4% !important;
     height: 92.5% !important;
   }
 }
+
 @media (min-width: 1600px) {
   .modal-content {
     top: 3.5% !important;
     height: 93.5% !important;
   }
 }
+
 @media (min-width: 1800px) {
   .modal-content {
     top: 3.2% !important;
     height: 93.5% !important;
   }
 }
+
 @media (min-width: 2000px) {
   .modal-content {
     top: 3% !important;
     height: 94% !important;
   }
 }
+
 @media (min-width: 2500px) {
   .modal-content {
     top: 2.2% !important;
     height: 96% !important;
   }
 }
+
 @media (min-width: 4000px) {
   .modal-content {
     top: 1.5% !important;
     height: 97% !important;
   }
 }
+
 @media (min-width: 5000px) {
   .modal-content {
     top: 1% !important;

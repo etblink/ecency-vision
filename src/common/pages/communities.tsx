@@ -1,13 +1,11 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { FormControl } from "react-bootstrap";
 import { Community } from "../store/communities/types";
 import BaseComponent from "../components/base";
 import Meta from "../components/meta";
 import Theme from "../components/theme/index";
 import NavBar from "../components/navbar/index";
-import NavBarElectron from "../../desktop/app/components/navbar";
 import LinearProgress from "../components/linear-progress";
 import CommunityListItem from "../components/community-list-item";
 import SearchBox from "../components/search-box";
@@ -15,8 +13,9 @@ import ScrollToTop from "../components/scroll-to-top";
 import { _t } from "../i18n";
 import { getCommunities, getSubscriptions } from "../api/bridge";
 import defaults from "../constants/defaults.json";
-import { PageProps, pageMapDispatchToProps, pageMapStateToProps } from "./common";
+import { pageMapDispatchToProps, pageMapStateToProps, PageProps } from "./common";
 import "./communities.scss";
+import { FormControl } from "@ui/input";
 
 interface State {
   list: Community[];
@@ -73,7 +72,7 @@ class CommunitiesPage extends BaseComponent<PageProps, State> {
       });
   };
 
-  queryChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+  queryChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (this._timer) {
       clearTimeout(this._timer);
       this._timer = null;
@@ -86,7 +85,7 @@ class CommunitiesPage extends BaseComponent<PageProps, State> {
     });
   };
 
-  sortChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+  sortChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.stateSet({ sort: e.target.value }, (): void => {
       this.fetch();
     });
@@ -104,26 +103,14 @@ class CommunitiesPage extends BaseComponent<PageProps, State> {
       canonical: `${defaults.base}/communities`,
       description: _t("communities.description")
     };
-    let containerClasses = global.isElectron
-      ? "app-content communities-page mt-0 pt-6"
-      : "app-content communities-page";
 
     return (
       <>
         <Meta {...metaProps} />
         <ScrollToTop />
         <Theme global={this.props.global} />
-        {global.isElectron ? (
-          NavBarElectron({
-            ...this.props,
-            reloadFn: this.fetch,
-            reloading: loading
-          })
-        ) : (
-          <NavBar history={this.props.history} />
-        )}
-
-        <div className={containerClasses}>
+        <NavBar history={this.props.history} />
+        <div className="app-content communities-page">
           <div className="community-list">
             <div className="list-header">
               <h1 className="list-title">{_t("communities.title")}</h1>
@@ -142,7 +129,7 @@ class CommunitiesPage extends BaseComponent<PageProps, State> {
               </div>
               <div className="sort">
                 <FormControl
-                  as="select"
+                  type="select"
                   value={sort}
                   onChange={this.sortChanged}
                   disabled={loading}

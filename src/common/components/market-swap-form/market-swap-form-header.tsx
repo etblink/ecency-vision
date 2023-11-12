@@ -1,8 +1,9 @@
 import { MarketSwapFormStep } from "./form-step";
-import { Button } from "react-bootstrap";
 import { _t } from "../../i18n";
 import React, { useEffect, useState } from "react";
-import { arrowLeftSvg, syncSvg } from "../../img/svg";
+import { arrowLeftSvg } from "../../img/svg";
+import { Button } from "@ui/button";
+import { Spinner } from "@ui/spinner";
 
 export interface Props {
   step: MarketSwapFormStep;
@@ -21,16 +22,20 @@ export const MarketSwapFormHeader = ({ step, loading, onBack, className }: Props
   }, [step]);
 
   return (
-    <div className={"market-swap-form-header d-flex align-items-center title mb-4 " + className}>
+    <div className={"market-swap-form-header flex items-center title mb-4 " + className}>
       {step === MarketSwapFormStep.SIGN ? (
-        <Button variant="link" size="sm" disabled={loading} onClick={() => onBack()}>
-          {arrowLeftSvg}
-        </Button>
+        <Button
+          appearance="link"
+          size="sm"
+          disabled={loading}
+          onClick={() => onBack()}
+          icon={arrowLeftSvg}
+        />
       ) : (
         <></>
       )}
-      <div className="text-primary font-weight-bold">{title}</div>
-      {loading ? <i className="loading-market-svg ml-2 text-primary">{syncSvg}</i> : <></>}
+      <div className="text-blue-dark-sky font-bold">{title}</div>
+      {loading ? <Spinner className="w-4 h-4 ml-3" /> : <></>}
     </div>
   );
 };

@@ -2,64 +2,60 @@
 
 exports[`SwapAmountControl should be able to render element after balance 1`] = `
 <div
-  className="px-3 pt-3 pb-5 mb-0 border undefined form-group"
+  className="px-3 pt-3 pb-5 mb-0 border dark:border-[--border-color] rounded-2xl undefined"
 >
-  <label
-    className="form-label"
-  >
+  <label>
     
   </label>
   <div
-    className="d-flex align-items-center w-100"
+    className="flex items-center w-full"
   >
     <div
-      className="w-100"
+      className="w-full"
     >
       <input
-        className="amount-control pl-0 form-control"
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800 aria-invalid:border-red amount-control pl-0"
         disabled={false}
         onChange={[Function]}
         placeholder="0.000"
+        type="text"
         value="0"
       />
       <small
-        className="usd-balance bold text-secondary"
+        className="usd-balance bold text-gray-600"
       >
         $
         0
       </small>
     </div>
     <div
-      className="input-group-append"
+      className="flex flex-col items-end"
     >
-      <div
-        className="d-flex flex-column align-items-end"
+      <select
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800  !w-auto"
+        disabled={false}
+        onChange={[Function]}
+        type="select"
+        value="HIVE"
       >
-        <select
-          className="form-control form-control py-2 border-0 h-auto font-weight-bold w-auto mb-2 "
-          disabled={false}
-          onChange={[Function]}
+        <option
           value="HIVE"
         >
-          <option
-            value="HIVE"
-          >
-            HIVE
-          </option>
-        </select>
-        <small
-          className="balance d-block text-secondary text-nowrap"
+          HIVE
+        </option>
+      </select>
+      <small
+        className="balance block text-gray-600 whitespace-nowrap"
+      >
+        Balance
+        :
+        <span
+          className="text-blue-dark-sky font-bold cursor-pointer ml-1"
+          onClick={[Function]}
         >
-          Balance
-          :
-          <span
-            className="text-primary font-weight-bold cursor-pointer ml-1"
-            onClick={[Function]}
-          >
-            test
-          </span>
-        </small>
-      </div>
+          test
+        </span>
+      </small>
     </div>
   </div>
   <div>
@@ -70,57 +66,53 @@ exports[`SwapAmountControl should be able to render element after balance 1`] = 
 
 exports[`SwapAmountControl should be able to show available assets list 1`] = `
 <div
-  className="px-3 pt-3 pb-5 mb-0 border undefined form-group"
+  className="px-3 pt-3 pb-5 mb-0 border dark:border-[--border-color] rounded-2xl undefined"
 >
-  <label
-    className="form-label"
-  >
+  <label>
     
   </label>
   <div
-    className="d-flex align-items-center w-100"
+    className="flex items-center w-full"
   >
     <div
-      className="w-100"
+      className="w-full"
     >
       <input
-        className="amount-control pl-0 form-control"
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800 aria-invalid:border-red amount-control pl-0"
         disabled={false}
         onChange={[Function]}
         placeholder="0.000"
+        type="text"
         value="0"
       />
       <small
-        className="usd-balance bold text-secondary"
+        className="usd-balance bold text-gray-600"
       >
         $
         0
       </small>
     </div>
     <div
-      className="input-group-append"
+      className="flex flex-col items-end"
     >
-      <div
-        className="d-flex flex-column align-items-end"
+      <select
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800  !w-auto"
+        disabled={false}
+        onChange={[Function]}
+        type="select"
+        value="HIVE"
       >
-        <select
-          className="form-control form-control py-2 border-0 h-auto font-weight-bold w-auto mb-2 "
-          disabled={false}
-          onChange={[Function]}
+        <option
           value="HIVE"
         >
-          <option
-            value="HIVE"
-          >
-            HIVE
-          </option>
-          <option
-            value="HBD"
-          >
-            HBD
-          </option>
-        </select>
-      </div>
+          HIVE
+        </option>
+        <option
+          value="HBD"
+        >
+          HBD
+        </option>
+      </select>
     </div>
   </div>
 </div>
@@ -128,64 +120,60 @@ exports[`SwapAmountControl should be able to show available assets list 1`] = `
 
 exports[`SwapAmountControl should render balance showing 1`] = `
 <div
-  className="px-3 pt-3 pb-5 mb-0 border undefined form-group"
+  className="px-3 pt-3 pb-5 mb-0 border dark:border-[--border-color] rounded-2xl undefined"
 >
-  <label
-    className="form-label"
-  >
+  <label>
     
   </label>
   <div
-    className="d-flex align-items-center w-100"
+    className="flex items-center w-full"
   >
     <div
-      className="w-100"
+      className="w-full"
     >
       <input
-        className="amount-control pl-0 form-control"
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800 aria-invalid:border-red amount-control pl-0"
         disabled={false}
         onChange={[Function]}
         placeholder="0.000"
+        type="text"
         value="0"
       />
       <small
-        className="usd-balance bold text-secondary"
+        className="usd-balance bold text-gray-600"
       >
         $
         0
       </small>
     </div>
     <div
-      className="input-group-append"
+      className="flex flex-col items-end"
     >
-      <div
-        className="d-flex flex-column align-items-end"
+      <select
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800  !w-auto"
+        disabled={false}
+        onChange={[Function]}
+        type="select"
+        value="HIVE"
       >
-        <select
-          className="form-control form-control py-2 border-0 h-auto font-weight-bold w-auto mb-2 "
-          disabled={false}
-          onChange={[Function]}
+        <option
           value="HIVE"
         >
-          <option
-            value="HIVE"
-          >
-            HIVE
-          </option>
-        </select>
-        <small
-          className="balance d-block text-secondary text-nowrap"
+          HIVE
+        </option>
+      </select>
+      <small
+        className="balance block text-gray-600 whitespace-nowrap"
+      >
+        Balance
+        :
+        <span
+          className="text-blue-dark-sky font-bold cursor-pointer ml-1"
+          onClick={[Function]}
         >
-          Balance
-          :
-          <span
-            className="text-primary font-weight-bold cursor-pointer ml-1"
-            onClick={[Function]}
-          >
-            test balance
-          </span>
-        </small>
-      </div>
+          test balance
+        </span>
+      </small>
     </div>
   </div>
 </div>
@@ -193,52 +181,48 @@ exports[`SwapAmountControl should render balance showing 1`] = `
 
 exports[`SwapAmountControl should render correctly 1`] = `
 <div
-  className="px-3 pt-3 pb-5 mb-0 border undefined form-group"
+  className="px-3 pt-3 pb-5 mb-0 border dark:border-[--border-color] rounded-2xl undefined"
 >
-  <label
-    className="form-label"
-  >
+  <label>
     
   </label>
   <div
-    className="d-flex align-items-center w-100"
+    className="flex items-center w-full"
   >
     <div
-      className="w-100"
+      className="w-full"
     >
       <input
-        className="amount-control pl-0 form-control"
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800 aria-invalid:border-red amount-control pl-0"
         disabled={false}
         onChange={[Function]}
         placeholder="0.000"
+        type="text"
         value="0"
       />
       <small
-        className="usd-balance bold text-secondary"
+        className="usd-balance bold text-gray-600"
       >
         $
         0
       </small>
     </div>
     <div
-      className="input-group-append"
+      className="flex flex-col items-end"
     >
-      <div
-        className="d-flex flex-column align-items-end"
+      <select
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800  !w-auto"
+        disabled={false}
+        onChange={[Function]}
+        type="select"
+        value="HIVE"
       >
-        <select
-          className="form-control form-control py-2 border-0 h-auto font-weight-bold w-auto mb-2 "
-          disabled={false}
-          onChange={[Function]}
+        <option
           value="HIVE"
         >
-          <option
-            value="HIVE"
-          >
-            HIVE
-          </option>
-        </select>
-      </div>
+          HIVE
+        </option>
+      </select>
     </div>
   </div>
 </div>
@@ -246,52 +230,48 @@ exports[`SwapAmountControl should render correctly 1`] = `
 
 exports[`SwapAmountControl should render disabled state 1`] = `
 <div
-  className="px-3 pt-3 pb-5 mb-0 border undefined form-group"
+  className="px-3 pt-3 pb-5 mb-0 border dark:border-[--border-color] rounded-2xl undefined"
 >
-  <label
-    className="form-label"
-  >
+  <label>
     
   </label>
   <div
-    className="d-flex align-items-center w-100"
+    className="flex items-center w-full"
   >
     <div
-      className="w-100"
+      className="w-full"
     >
       <input
-        className="amount-control pl-0 form-control"
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800 aria-invalid:border-red amount-control pl-0"
         disabled={true}
         onChange={[Function]}
         placeholder="0.000"
+        type="text"
         value="0"
       />
       <small
-        className="usd-balance bold text-secondary"
+        className="usd-balance bold text-gray-600"
       >
         $
         0
       </small>
     </div>
     <div
-      className="input-group-append"
+      className="flex flex-col items-end"
     >
-      <div
-        className="d-flex flex-column align-items-end"
+      <select
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800  !w-auto"
+        disabled={true}
+        onChange={[Function]}
+        type="select"
+        value="HIVE"
       >
-        <select
-          className="form-control form-control py-2 border-0 h-auto font-weight-bold w-auto mb-2 "
-          disabled={true}
-          onChange={[Function]}
+        <option
           value="HIVE"
         >
-          <option
-            value="HIVE"
-          >
-            HIVE
-          </option>
-        </select>
-      </div>
+          HIVE
+        </option>
+      </select>
     </div>
   </div>
 </div>
@@ -299,52 +279,48 @@ exports[`SwapAmountControl should render disabled state 1`] = `
 
 exports[`SwapAmountControl should render label 1`] = `
 <div
-  className="px-3 pt-3 pb-5 mb-0 border undefined form-group"
+  className="px-3 pt-3 pb-5 mb-0 border dark:border-[--border-color] rounded-2xl undefined"
 >
-  <label
-    className="form-label"
-  >
+  <label>
     Test
   </label>
   <div
-    className="d-flex align-items-center w-100"
+    className="flex items-center w-full"
   >
     <div
-      className="w-100"
+      className="w-full"
     >
       <input
-        className="amount-control pl-0 form-control"
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800 aria-invalid:border-red amount-control pl-0"
         disabled={false}
         onChange={[Function]}
         placeholder="0.000"
+        type="text"
         value="0"
       />
       <small
-        className="usd-balance bold text-secondary"
+        className="usd-balance bold text-gray-600"
       >
         $
         0
       </small>
     </div>
     <div
-      className="input-group-append"
+      className="flex flex-col items-end"
     >
-      <div
-        className="d-flex flex-column align-items-end"
+      <select
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800  !w-auto"
+        disabled={false}
+        onChange={[Function]}
+        type="select"
+        value="HIVE"
       >
-        <select
-          className="form-control form-control py-2 border-0 h-auto font-weight-bold w-auto mb-2 "
-          disabled={false}
-          onChange={[Function]}
+        <option
           value="HIVE"
         >
-          <option
-            value="HIVE"
-          >
-            HIVE
-          </option>
-        </select>
-      </div>
+          HIVE
+        </option>
+      </select>
     </div>
   </div>
 </div>
@@ -352,52 +328,48 @@ exports[`SwapAmountControl should render label 1`] = `
 
 exports[`SwapAmountControl should set className 1`] = `
 <div
-  className="px-3 pt-3 pb-5 mb-0 border test form-group"
+  className="px-3 pt-3 pb-5 mb-0 border dark:border-[--border-color] rounded-2xl test"
 >
-  <label
-    className="form-label"
-  >
+  <label>
     
   </label>
   <div
-    className="d-flex align-items-center w-100"
+    className="flex items-center w-full"
   >
     <div
-      className="w-100"
+      className="w-full"
     >
       <input
-        className="amount-control pl-0 form-control"
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800 aria-invalid:border-red amount-control pl-0"
         disabled={false}
         onChange={[Function]}
         placeholder="0.000"
+        type="text"
         value="0"
       />
       <small
-        className="usd-balance bold text-secondary"
+        className="usd-balance bold text-gray-600"
       >
         $
         0
       </small>
     </div>
     <div
-      className="input-group-append"
+      className="flex flex-col items-end"
     >
-      <div
-        className="d-flex flex-column align-items-end"
+      <select
+        className="border-2 rounded-3xl py-2 px-3 w-full outline-none shadow-0 focus:border-gray-500 hover:border-gray-300 duration-300 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-gray-800  !w-auto"
+        disabled={false}
+        onChange={[Function]}
+        type="select"
+        value="HIVE"
       >
-        <select
-          className="form-control form-control py-2 border-0 h-auto font-weight-bold w-auto mb-2 "
-          disabled={false}
-          onChange={[Function]}
+        <option
           value="HIVE"
         >
-          <option
-            value="HIVE"
-          >
-            HIVE
-          </option>
-        </select>
-      </div>
+          HIVE
+        </option>
+      </select>
     </div>
   </div>
 </div>

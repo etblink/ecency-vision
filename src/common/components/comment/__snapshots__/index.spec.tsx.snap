@@ -203,7 +203,7 @@ exports[`(1) Default render 1`] = `
     </div>
     <div
       className="editor-tool"
-      id="editor-tool-emoji-picker"
+      id="editor-tool-emoji-picker-fec72906-7b57-4b29-bfaa-dc1edc171f08"
       role="none"
       title="Emoji"
     >
@@ -294,7 +294,6 @@ exports[`(1) Default render 1`] = `
             "hasKeyChain": false,
             "hsClientId": "ecency.app",
             "intro": true,
-            "isElectron": false,
             "isMobile": false,
             "lang": "en-US",
             "lastIndexPath": null,
@@ -327,16 +326,23 @@ exports[`(1) Default render 1`] = `
     />
   </div>
   <div
-    className="comment-buttons d-flex align-items-center mt-3"
+    className="comment-buttons flex items-center mt-3"
   >
     <button
-      className="btn-submit btn btn-primary btn-sm"
+      className="cursor-pointer rounded-full duration-300 no-wrap flex-row-reverse bg-blue-dark-sky hover:bg-blue-dark-sky-hover focus:bg-blue-dark-sky-active text-white disabled:opacity-50 disabled:hover:bg-blue-dark-sky disabled:focus:bg-blue-dark-sky h-[2rem] text-sm font-[500] px-2 "
       disabled={false}
       onClick={[Function]}
+      size="sm"
+      style={
+        Object {
+          "outline": "none",
+        }
+      }
       type="button"
     >
-       
-      Reply
+      <div>
+        Reply
+      </div>
     </button>
   </div>
 </div>
@@ -545,7 +551,7 @@ exports[`(2) Cancellable, in progress 1`] = `
     </div>
     <div
       className="editor-tool"
-      id="editor-tool-emoji-picker"
+      id="editor-tool-emoji-picker-883ace21-bed9-4ce1-ba59-54d3d34e906f"
       role="none"
       title="Emoji"
     >
@@ -636,7 +642,6 @@ exports[`(2) Cancellable, in progress 1`] = `
             "hasKeyChain": false,
             "hsClientId": "ecency.app",
             "intro": true,
-            "isElectron": false,
             "isMobile": false,
             "lang": "en-US",
             "lastIndexPath": null,
@@ -669,16 +674,23 @@ exports[`(2) Cancellable, in progress 1`] = `
     />
   </div>
   <div
-    className="comment-buttons d-flex align-items-center mt-3"
+    className="comment-buttons flex items-center mt-3"
   >
     <button
-      className="btn-submit btn btn-primary btn-sm"
+      className="cursor-pointer rounded-full duration-300 no-wrap flex-row-reverse bg-blue-dark-sky hover:bg-blue-dark-sky-hover focus:bg-blue-dark-sky-active text-white disabled:opacity-50 disabled:hover:bg-blue-dark-sky disabled:focus:bg-blue-dark-sky h-[2rem] text-sm font-[500] px-2 "
       disabled={false}
       onClick={[Function]}
+      size="sm"
+      style={
+        Object {
+          "outline": "none",
+        }
+      }
       type="button"
     >
-       
-      Reply
+      <div>
+        Reply
+      </div>
     </button>
   </div>
 </div>

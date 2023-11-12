@@ -12,7 +12,6 @@ import Meta from "../components/meta";
 import Theme from "../components/theme";
 import Feedback from "../components/feedback";
 import NavBar from "../components/navbar";
-import NavBarElectron from "../../desktop/app/components/navbar";
 import LinearProgress from "../components/linear-progress/index";
 import EntryListLoadingItem from "../components/entry-list-loading-item";
 import DetectBottom from "../components/detect-bottom";
@@ -334,17 +333,6 @@ export const Profile = (props: Props) => {
 
   const delayedSearch = useCallback(_.debounce(handleInputChange, 3000, { leading: true }), []);
 
-  const getNavBar = () => {
-    return props.global.isElectron ? (
-      NavBarElectron({
-        ...props,
-        reloadFn: reload,
-        reloading: loading
-      })
-    ) : (
-      <NavBar history={props.history} />
-    );
-  };
   const getMetaProps = () => {
     const username = props.match.params.username.replace("@", "");
     const account = props.accounts.find((x) => x.name === username);
@@ -419,15 +407,9 @@ export const Profile = (props: Props) => {
       <ScrollToTop />
       <Theme global={props.global} />
       <Feedback activeUser={props.activeUser} />
-      {getNavBar()}
+      <NavBar history={props.history} />
 
-      <div
-        className={
-          props.global.isElectron
-            ? "app-content profile-page mt-0 pt-6"
-            : "app-content profile-page"
-        }
-      >
+      <div className="app-content profile-page">
         <div className="profile-side">{ProfileCard({ ...props, account, section })}</div>
         <span itemScope={true} itemType="http://schema.org/Person">
           {account?.__loaded && (
@@ -516,7 +498,9 @@ export const Profile = (props: Props) => {
                           <div className="permission-menu-items">
                             <h6
                               className={
-                                tabState === 1 ? "border-bottom pb-3 tab current-tab" : "tab"
+                                tabState === 1
+                                  ? "border-b border-[--border-color] pb-3 tab current-tab"
+                                  : "tab"
                               }
                               onClick={() => setTabState(1)}
                             >
@@ -526,7 +510,9 @@ export const Profile = (props: Props) => {
                           <div className="permission-menu-items">
                             <h6
                               className={
-                                tabState === 2 ? "border-bottom pb-3 tab current-tab" : "tab"
+                                tabState === 2
+                                  ? "border-b border-[--border-color] pb-3 tab current-tab"
+                                  : "tab"
                               }
                               onClick={() => setTabState(2)}
                             >
@@ -536,7 +522,9 @@ export const Profile = (props: Props) => {
                           <div className="permission-menu-items">
                             <h6
                               className={
-                                tabState === 3 ? "border-bottom pb-3 tab current-tab" : "tab"
+                                tabState === 3
+                                  ? "border-b border-[--border-color] pb-3 tab current-tab"
+                                  : "tab"
                               }
                               onClick={() => setTabState(3)}
                             >
@@ -546,8 +534,8 @@ export const Profile = (props: Props) => {
                         </div>
                         <div className="container-fluid">
                           {tabState === 1 && <ManageAuthorities {...props} />}
-                          <div className="row pb-4">
-                            <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="grid grid-cols-12 pb-4">
+                            <div className="col-span-12 sm:col-span-6">
                               {tabState === 2 && <AccountRecovery {...props} />}
                               {tabState === 3 && <PasswordUpdate activeUser={props.activeUser} />}
                             </div>

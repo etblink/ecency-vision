@@ -1,17 +1,12 @@
 import React from "react";
-
 import { connect } from "react-redux";
-import { Form, FormControl, Spinner } from "react-bootstrap";
-
 import { pathToRegexp } from "path-to-regexp";
-
 import BaseComponent from "../components/base";
 import Meta from "../components/meta";
 import Feedback from "../components/feedback";
 import ScrollToTop from "../components/scroll-to-top";
 import Theme from "../components/theme";
 import NavBar from "../components/navbar";
-import NavBarElectron from "../../desktop/app/components/navbar";
 import LinearProgress from "../components/linear-progress";
 import ProfileLink from "../components/profile-link";
 import UserAvatar from "../components/user-avatar";
@@ -20,22 +15,20 @@ import WitnessVoteBtn from "../components/witness-vote-btn";
 import WitnessesExtra from "../components/witnesses-extra";
 import WitnessesProxy from "../components/witnesses-proxy";
 import WitnessesActiveProxy from "../components/witnesses-active-proxy";
-import Pagination from "../components/pagination";
-
+import Pagination from "@ui/pagination";
 import routes from "../../common/routes";
-
 import { getAccount, getAccounts, getWitnessesByVote, Witness } from "../api/hive";
-
 import { _t } from "../i18n";
 import { Tsx } from "../i18n/helper";
-
 import { linkSvg, openInNewSvg } from "../img/svg";
-
 import { pageMapDispatchToProps, pageMapStateToProps, PageProps } from "./common";
 import { FullAccount } from "../store/accounts/types";
 import { WitnessCard } from "../components/witness-card";
 import { dateToRelative } from "../helper/parse-date";
 import "./witnesses.scss";
+import { Spinner } from "@ui/spinner";
+import { FormControl } from "@ui/input";
+import { Table, Td, Th, Tr } from "@ui/table";
 
 interface WitnessTransformed {
   rank: number;
@@ -210,7 +203,7 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
     }
   };
 
-  sortChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+  sortChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.stateSet({ sort: e.target.value as SortOption });
   };
 
@@ -350,26 +343,26 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
 
     const table = (
       <>
-        <table className="table">
+        <Table full={true}>
           <thead>
-            <tr>
-              <th className="col-rank">{_t("witnesses.list-rank")}</th>
-              <th>{_t("witnesses.list-witness")}</th>
-              <th className="col-miss">{_t("witnesses.list-miss")}</th>
-              <th className="col-url">{_t("witnesses.list-url")}</th>
-              <th className="col-fee">{_t("witnesses.list-fee")}</th>
-              <th className="col-feed">{_t("witnesses.list-feed")}</th>
-              <th className="col-version">{_t("witnesses.list-version")}</th>
-            </tr>
+            <Tr>
+              <Th className="border p-2 col-rank">{_t("witnesses.list-rank")}</Th>
+              <Th className="border p-2 ">{_t("witnesses.list-witness")}</Th>
+              <Th className="border p-2 col-miss">{_t("witnesses.list-miss")}</Th>
+              <Th className="border p-2 col-url">{_t("witnesses.list-url")}</Th>
+              <Th className="border p-2 col-fee">{_t("witnesses.list-fee")}</Th>
+              <Th className="border p-2 col-feed">{_t("witnesses.list-feed")}</Th>
+              <Th className="border p-2 col-version">{_t("witnesses.list-version")}</Th>
+            </Tr>
           </thead>
           <tbody>
             {sliced.map((row, i) => {
               return (
-                <tr
+                <Tr
                   key={`${row.name}-${row.rank}${i}`}
                   className={`${this.state.proxyVotes.includes(row.name) ? "voted-by-voter" : ""}`}
                 >
-                  <td>
+                  <Td className="border p-2">
                     <div className="witness-rank">
                       <span className="rank-number">{row.rank}</span>
                       {WitnessVoteBtn({
@@ -385,8 +378,8 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
                         }
                       })}
                     </div>
-                  </td>
-                  <td>
+                  </Td>
+                  <Td className="border p-2">
                     {ProfileLink({
                       ...this.props,
                       username: row.name,
@@ -409,11 +402,11 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
                         </span>
                       )
                     })}
-                  </td>
-                  <td>
+                  </Td>
+                  <Td className="border p-2">
                     <span className="witness-miss">{row.miss}</span>
-                  </td>
-                  <td>
+                  </Td>
+                  <Td className="border p-2">
                     {(() => {
                       const { parsedUrl } = row;
                       if (parsedUrl) {
@@ -429,28 +422,28 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
                         </a>
                       );
                     })()}
-                  </td>
-                  <td>
+                  </Td>
+                  <Td className="border p-2">
                     <span className="witness-fee">{row.fee}</span>
-                  </td>
-                  <td>
+                  </Td>
+                  <Td className="border p-2">
                     <div className="witness-feed">
                       <span className="inner">
                         ${row.feed.replace(" HBD", "")} | {dateToRelative(row.priceAge)}
                       </span>
                     </div>
-                  </td>
-                  <td>
+                  </Td>
+                  <Td className="border p-2">
                     <div className="witness-version">
                       <span className="inner">{row.version}</span>
                     </div>
-                  </td>
-                </tr>
+                  </Td>
+                </Tr>
               );
             })}
           </tbody>
-        </table>
-        <div className="d-md-none">
+        </Table>
+        <div className="md:hidden">
           {witnesses.map((row, i) => {
             return (
               <span key={`${row.name}${i}`}>
@@ -494,8 +487,8 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
     );
 
     const search = (
-      <Form.Group className="mb-3 w-100">
-        <Form.Control
+      <div className="mb-3 w-full">
+        <FormControl
           type="text"
           placeholder={_t("witnesses.search-placeholder")}
           value={searchText}
@@ -503,9 +496,8 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
             this.setState({ searchText: e.target.value });
           }}
         />
-      </Form.Group>
+      </div>
     );
-    let containerClasses = global.isElectron ? " mt-0 pt-6" : "";
 
     return (
       <>
@@ -513,16 +505,9 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
         <ScrollToTop />
         <Theme global={this.props.global} />
         <Feedback activeUser={this.props.activeUser} />
-        {global.isElectron ? (
-          NavBarElectron({
-            ...this.props,
-            reloadFn: this.load,
-            reloading: loading
-          })
-        ) : (
-          <NavBar history={this.props.history} />
-        )}
-        <div className={"app-content witnesses-page" + containerClasses}>
+        <NavBar history={this.props.history} />
+
+        <div className="app-content witnesses-page">
           {(() => {
             if (loading && !originalWitnesses.length) {
               return (
@@ -533,19 +518,6 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
               );
             }
 
-            // if (proxy) {
-            //     return <>
-            //         {header}
-            //         <WitnessesActiveProxy
-            //             {...this.props}
-            //             username={proxy}
-            //             onDone={() => {
-            //                 this.stateSet({proxy: null});
-            //             }}
-            //         />
-            //     </>
-            // }
-
             return (
               <>
                 {header}
@@ -553,7 +525,7 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
                   {proxy || params ? (
                     <WitnessesActiveProxy
                       {...this.props}
-                      isProxy={!params ? true : false}
+                      isProxy={!params}
                       username={params || proxy}
                       onDone={() => {
                         this.stateSet({ proxy: "" });
@@ -567,13 +539,7 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
                 {sliced && sliced.length > 0 ? (
                   <div className="witnesses-table">
                     {table}
-                    {spinner && (
-                      <Spinner
-                        animation="grow"
-                        variant="primary"
-                        style={{ position: "fixed", bottom: "10%", left: "50%" }}
-                      />
-                    )}
+                    {spinner && <Spinner className="fixed bottom-[10%] left-[50%] w-3.5 h-3.5" />}
                   </div>
                 ) : (
                   <div className="witnesses-table">
@@ -584,29 +550,27 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
                 )}
 
                 <div className="table-tools">
-                  <div className="pagination">
-                    {witnesses.length > pageSize && (
-                      <Pagination
-                        dataLength={witnesses.length}
-                        pageSize={pageSize}
-                        maxItems={4}
-                        page={page}
-                        onPageChange={(page) => {
-                          this.setState({ page }, () => {
-                            this.handlePageChange();
-                          });
-                        }}
-                      />
-                    )}
-                  </div>
+                  {witnesses.length > pageSize && (
+                    <Pagination
+                      dataLength={witnesses.length}
+                      pageSize={pageSize}
+                      maxItems={4}
+                      page={page}
+                      onPageChange={(page) => {
+                        this.setState({ page }, () => {
+                          this.handlePageChange();
+                        });
+                      }}
+                    />
+                  )}
 
                   <div className="sorter">
                     <span className="label">{_t("witnesses.sort")}</span>
-                    <Form.Control as="select" onChange={this.sortChanged} value={sort}>
+                    <FormControl type="select" onChange={this.sortChanged} value={sort}>
                       <option value="rank">{_t("witnesses.sort-rank")}</option>
                       <option value="name">{_t("witnesses.sort-name")}</option>
                       <option value="fee">{_t("witnesses.sort-fee")}</option>
-                    </Form.Control>
+                    </FormControl>
                   </div>
                 </div>
                 <div className="witnesses-controls">
@@ -632,21 +596,6 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
                         }
                       })
                     : null}
-
-                  {/* {!proxy ? WitnessesProxy({
-                                    ...this.props,
-                                    onDone: (username) => {
-                                        this.stateSet({proxy: username, witnesses: []});
-                                    }
-                                }) : (
-                                    <WitnessesActiveProxy
-                                    {...this.props}
-                                    username={proxy}
-                                    onDone={() => {
-                                        this.stateSet({proxy: ''});
-                                    }}
-                                />
-                                )} */}
                 </div>
               </>
             );

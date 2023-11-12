@@ -12,11 +12,11 @@
   @include transition(0.4s);
 
   @include themify(day) {
-    background-color: $white;
+    @apply bg-white;
   }
 
   @include themify(night) {
-    background-color: $dark-two;
+    @apply bg-dark-200;
   }
 
   &.native-scroll {
@@ -31,7 +31,7 @@
     display: none;
   }
 
-  .accordion .deck-header {
+  .ecency-accordion .deck-header {
     padding: 0.69rem;
     display: grid;
     grid-template-areas:
@@ -39,6 +39,7 @@
     grid-template-columns: min-content min-content 1fr min-content min-content;
     border-bottom: 1px solid $border-color;
     min-height: 67px;
+    line-height: 1.2;
 
     .deck-index {
       grid-area: drag-icon;
@@ -91,11 +92,11 @@
     }
 
     @include themify(day) {
-      background-color: rgba($white, 0.75);
+      @apply bg-white-075;
     }
 
     @include themify(night) {
-      background-color: rgba($dark-two, 0.75);
+      @apply bg-dark-200-075;
     }
 
     &.header-sticky.primary {
@@ -120,7 +121,7 @@
         }
       }
 
-      .accordion .deck-header {
+      .ecency-accordion .deck-header {
         align-items: center;
         grid-template-areas:
           "prefix drag-icon empty dropdown"
@@ -166,7 +167,7 @@
   }
 
   .icon path {
-    fill: $dark-sky-blue;
+    @apply fill-blue-dark-sky;
   }
 
   .header-title {
@@ -278,7 +279,7 @@
   }
 
   .deck-pinned {
-    color: $red4 !important;
+    @apply text-red-040;
     transform: rotate(45deg);
 
     svg {
@@ -340,11 +341,11 @@
         animation: skeleton-loader 1s infinite;
 
         @include themify(day) {
-          background-color: $gray-200;
+          @apply bg-gray-200;
         }
 
         @include themify(night) {
-          background-image: $dark-two;
+          @apply bg-dark-200;
         }
       }
 
@@ -425,7 +426,7 @@
     .transaction-icon {
       grid-area: icon;
       margin: 0 auto;
-      color: $dusky-blue-two;
+      @apply text-blue-dusky-2;
       min-width: 16px;
       opacity: 0.75;
     }
@@ -462,8 +463,9 @@
     }
   }
 
-  .notification-list-item {
+  .virtual-list-item > .notification-list-item {
     border-bottom: 1px solid $border-color;
+    line-height: 1.2;
 
     @include padding-top(1rem);
     @include padding-bottom(1rem);
@@ -532,22 +534,6 @@
       transform: translateY(0);
       opacity: 1;
       visibility: visible;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-
-      @include font-size(0.75rem);
-
-      svg {
-        width: auto;
-
-        path {
-          stroke: $white;
-        }
-      }
     }
   }
 

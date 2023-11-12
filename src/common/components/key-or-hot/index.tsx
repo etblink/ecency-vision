@@ -1,19 +1,15 @@
 import React, { Component } from "react";
-
-import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
-
 import { cryptoUtils, PrivateKey } from "@hiveio/dhive";
-
 import { ActiveUser } from "../../store/active-user/types";
 import { Global } from "../../store/global/types";
-
 import OrDivider from "../or-divider";
 import { error } from "../feedback";
-
 import { _t } from "../../i18n";
-
 import { keySvg } from "../../img/svg";
 import "./index.scss";
+import { FormControl, InputGroup } from "@ui/input";
+import { Button } from "@ui/button";
+import { Form } from "@ui/form";
 
 interface Props {
   global: Global;
@@ -36,7 +32,7 @@ export class KeyOrHot extends Component<Props, State> {
     key: this.props.signingKey || ""
   };
 
-  keyChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
+  keyChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value: key } = e.target;
     this.setState({ key });
   };
@@ -84,12 +80,8 @@ export class KeyOrHot extends Component<Props, State> {
   render() {
     const { inProgress, global } = this.props;
     const { key } = this.state;
-    const hsLogo = global.isElectron
-      ? "./img/hive-signer.svg"
-      : require("../../img/hive-signer.svg");
-    const keyChainLogo = global.isElectron
-      ? "./img/keychain.png"
-      : require("../../img/keychain.png");
+    const hsLogo = require("../../img/hive-signer.svg");
+    const keyChainLogo = require("../../img/keychain.png");
 
     return (
       <>
@@ -99,11 +91,15 @@ export class KeyOrHot extends Component<Props, State> {
               e.preventDefault();
             }}
           >
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>{keySvg}</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
+            <InputGroup
+              prepend={keySvg}
+              append={
+                <Button disabled={inProgress} onClick={this.keyEntered}>
+                  {_t("key-or-hot.sign")}
+                </Button>
+              }
+            >
+              <FormControl
                 value={key}
                 type="password"
                 autoFocus={true}
@@ -111,11 +107,6 @@ export class KeyOrHot extends Component<Props, State> {
                 placeholder={_t("key-or-hot.key-placeholder")}
                 onChange={this.keyChanged}
               />
-              <InputGroup.Append>
-                <Button disabled={inProgress} onClick={this.keyEntered}>
-                  {_t("key-or-hot.sign")}
-                </Button>
-              </InputGroup.Append>
             </InputGroup>
           </Form>
           {this.props.keyOnly ? (
@@ -124,16 +115,24 @@ export class KeyOrHot extends Component<Props, State> {
             <>
               <OrDivider />
               <div className="hs-sign">
-                <Button variant="outline-primary" onClick={this.hotClicked}>
-                  <img src={hsLogo} className="hs-logo" alt="hivesigner" />{" "}
+                <Button
+                  outline={true}
+                  onClick={this.hotClicked}
+                  icon={<img src={hsLogo} className="hs-logo" alt="hivesigner" />}
+                  iconPlacement="left"
+                >
                   {_t("key-or-hot.with-hivesigner")}
                 </Button>
               </div>
 
               {global.hasKeyChain && (
                 <div className="kc-sign">
-                  <Button variant="outline-primary" onClick={this.kcClicked}>
-                    <img src={keyChainLogo} className="kc-logo" alt="keychain" />{" "}
+                  <Button
+                    outline={true}
+                    onClick={this.kcClicked}
+                    icon={<img src={keyChainLogo} className="kc-logo" alt="keychain" />}
+                    iconPlacement="left"
+                  >
                     {_t("key-or-hot.with-keychain")}
                   </Button>
                 </div>

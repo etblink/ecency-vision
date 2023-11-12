@@ -27,6 +27,7 @@ export interface JsonMetadata {
   format?: string;
   original_author?: string;
   original_permlink?: string;
+  image?: string[];
 }
 
 export interface Entry {
@@ -64,7 +65,7 @@ export interface Entry {
   promoted: string;
   reblogged_by?: string[] | any;
   replies: any[];
-  stats?: EntryStat;
+  stats: EntryStat;
   title: string;
   updated: string;
   url: string;

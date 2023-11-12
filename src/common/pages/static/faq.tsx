@@ -10,8 +10,6 @@ import { apiBase } from "../../api/helper";
 import Meta from "../../components/meta";
 import ScrollToTop from "../../components/scroll-to-top";
 import Theme from "../../components/theme";
-import NavBarElectron from "../../../desktop/app/components/navbar";
-import { Button, Form, InputGroup } from "react-bootstrap";
 import { copyContent } from "../../img/svg";
 import { Link } from "react-router-dom";
 import { Tsx } from "../../i18n/helper";
@@ -19,6 +17,8 @@ import { faqKeysGeneral } from "../../constants";
 import NavBar from "../../components/navbar";
 import FaqCategory from "../../components/faq-category";
 import { connect } from "react-redux";
+import { FormControl, InputGroup } from "@ui/input";
+import { Button } from "@ui/button";
 
 interface FAQPageState {
   search: string;
@@ -69,7 +69,6 @@ class FaqPage extends Component<PageProps, FAQPageState> {
 
     const { global } = this.props;
     const imgs = apiBase(`/assets/ecency-faq.${this.props.global.canUseWebp ? "webp" : "jpg"}`);
-    let containerClasses = global.isElectron ? " mt-0 pt-6" : "";
     let faqKeys = [...faqKeysGeneral];
     let searchResult: string[] = [];
     if (search && search.length > 0) {
@@ -90,39 +89,23 @@ class FaqPage extends Component<PageProps, FAQPageState> {
         <ScrollToTop />
         <Feedback activeUser={this.props.activeUser} />
         <Theme global={this.props.global} />
-        {global.isElectron ? (
-          NavBarElectron({
-            ...this.props
-          })
-        ) : (
-          <NavBar history={this.props.history} />
-        )}
+        <NavBar history={this.props.history} />
 
         <div
-          className={"app-content static-page faq-page" + containerClasses}
+          className="app-content static-page faq-page"
           itemScope={true}
           itemType="https://schema.org/FAQPage"
         >
           <div className="static-content">
-            <div className="position-relative rounded" style={{ marginBottom: "8%" }}>
+            <div className="relative rounded" style={{ marginBottom: "8%" }}>
               <img src={imgs} className="rounded" />
-              <div className="position-absolute search-container d-flex justify-content-center align-items-center flex-column rounded p-3">
+              <div className="absolute search-container flex justify-center items-center flex-col rounded p-3">
                 <h1 className="text-white faq-title text-center mb-3">
                   {_t("static.faq.page-title")}
                 </h1>
-                <InputGroup className="mb-3 w-75">
-                  <Form.Control
-                    placeholder={`${_t("static.faq.search-placeholder")}`}
-                    className="w-75"
-                    onChange={(e) => {
-                      this.setState({ search: e.target.value });
-                    }}
-                    value={search}
-                    autoFocus={true}
-                  />
-                  <InputGroup.Append>
+                <InputGroup
+                  append={
                     <Button
-                      variant="primary"
                       size="sm"
                       className="copy-to-clipboard"
                       disabled={search.length === 0}
@@ -131,13 +114,24 @@ class FaqPage extends Component<PageProps, FAQPageState> {
                           `https://ecency.com/faq?q=${search}&lang=${global.lang.split("-")[0]}`
                         );
                       }}
-                    >
-                      {copyContent}
-                    </Button>
-                  </InputGroup.Append>
+                      icon={copyContent}
+                    />
+                  }
+                  className="mb-3 w-[75%]"
+                >
+                  <FormControl
+                    type="text"
+                    placeholder={`${_t("static.faq.search-placeholder")}`}
+                    className="w-[75%]"
+                    onChange={(e) => {
+                      this.setState({ search: e.target.value });
+                    }}
+                    value={search}
+                    autoFocus={true}
+                  />
                 </InputGroup>
                 {search.length > 0 && (
-                  <Form.Text className="text-white mt-2 mt-sm-3 w-75 text-center helper-text">
+                  <small className="text-white mt-2 sm:mt-3 w-[75%] text-center helper-text">
                     {searchResult.length > 0 ? (
                       _t("static.faq.search", { search: `"${search}"` })
                     ) : (
@@ -149,7 +143,7 @@ class FaqPage extends Component<PageProps, FAQPageState> {
                         .
                       </div>
                     )}
-                  </Form.Text>
+                  </small>
                 )}
               </div>
             </div>
@@ -199,7 +193,7 @@ class FaqPage extends Component<PageProps, FAQPageState> {
                     itemType="https://schema.org/Question"
                   >
                     <span className="anchor" id={x} />
-                    <h4 className="faq-item-header" itemProp="name">
+                    <h4 className="faq-item-header text-[1.5rem] font-semibold" itemProp="name">
                       {_t(`static.faq.${x}-header`)}
                     </h4>
                     <div

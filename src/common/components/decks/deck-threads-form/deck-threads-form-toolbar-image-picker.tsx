@@ -9,8 +9,8 @@ import { uploadImage } from "../../../api/misc";
 import { error } from "../../feedback";
 import axios from "axios";
 import Gallery from "../../gallery";
-import { Button, Dropdown } from "react-bootstrap";
 import { PopperDropdown } from "../../popper-dropdown";
+import { Button } from "@ui/button";
 
 interface Props {
   onAddImage: (link: string, name: string) => void;
@@ -39,13 +39,6 @@ export const DeckThreadsFormToolbarImagePicker = ({ onAddImage }: Props) => {
     if (files.length > 0) {
       e.stopPropagation();
       e.preventDefault();
-    }
-
-    if (files.length > 1 && global.isElectron) {
-      let isWindows = process.platform === "win32";
-      if (isWindows) {
-        files = files.reverse();
-      }
     }
 
     files.forEach((file) => upload(file));
@@ -80,7 +73,7 @@ export const DeckThreadsFormToolbarImagePicker = ({ onAddImage }: Props) => {
     <div className="deck-threads-form-toolbar-image-picker">
       {activeUser && (
         <Tooltip content={_t("editor-toolbar.image")}>
-          <PopperDropdown toggle={imageSvg}>
+          <PopperDropdown toggle={<Button icon={imageSvg} appearance="link" noPadding={true} />}>
             <div className="dropdown-menu">
               <div
                 className="dropdown-item"

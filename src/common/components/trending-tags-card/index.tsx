@@ -60,12 +60,12 @@ export class TrendingTagsCard extends Component<Props> {
 
         {trendingTags.list.slice(0, 30).map((t) => {
           const cls = _c(
-            `tag-list-item ${global.tag === t ? "selected-item" : ""} d-flex align-items-center`
+            `tag-list-item ${global.tag === t ? "selected-item" : ""} flex items-center`
           );
 
           return (
             <Fragment key={t}>
-              <div className="d-flex">
+              <div className="flex">
                 {Tag({
                   ...this.props,
                   tag: t,
@@ -75,7 +75,7 @@ export class TrendingTagsCard extends Component<Props> {
                       {t}
                       {global.tag === t && (
                         <div
-                          className="text-secondary ml-4 pointer"
+                          className="text-gray-600 ml-4 pointer"
                           onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();

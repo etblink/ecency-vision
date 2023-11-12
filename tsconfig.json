@@ -22,7 +22,10 @@
     "pretty": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@ui/*": ["./src/common/features/ui/*"]
+    }
   },
   "exclude": [
     "node_modules",
@@ -35,8 +38,7 @@
     "**/*.spec.tsx",
     "jest",
     "razzle.config.js",
-    "healthCheck.js",
-    "src/desktop/**/*.js"
+    "healthCheck.js"
   ],
   "types": ["typePatches", "node", "jest", "webpack-env", "resize-observer-browser"]
 }

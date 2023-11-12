@@ -10,7 +10,6 @@ import TrendingTagsCard from "../components/trending-tags-card";
 import MarketData from "../components/market-data";
 import _c from "../util/fix-class-names";
 import { PageProps } from "./common";
-import { Decks } from "../components/decks";
 import { Entry } from "../store/entries/types";
 import { TopCommunitiesWidget } from "../components/top-communities-widget";
 import * as ls from "../util/local-storage";
@@ -122,16 +121,9 @@ class EntryIndexPage extends Component<Props, State> {
     const { entryList, promoted } = this.state;
     const { global } = this.props;
 
-    let containerClasses;
-    if (global.isElectron) {
-      containerClasses = "app-content entry-index-page mt-0 pt-6";
-    } else {
-      containerClasses = "app-content overflow-hidden entry-index-page";
-    }
-
     return (
       <>
-        <div className={containerClasses}>
+        <div className="app-content overflow-hidden entry-index-page">
           <div className="tags-side">
             {!global.isMobile && <>{TrendingTagsCard({ ...this.props })}</>}
           </div>

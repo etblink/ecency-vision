@@ -8,11 +8,9 @@ import { History, Location } from "history";
 
 import moment from "moment";
 
-import _ from "lodash";
-
 import numeral from "numeral";
 
-import { Proposal, getProposalVotes } from "../../api/hive";
+import { getProposalVotes, Proposal } from "../../api/hive";
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
@@ -33,7 +31,6 @@ import _c from "../../util/fix-class-names";
 import { _t } from "../../i18n";
 
 import { linkSvg } from "../../img/svg";
-import isElectron from "../../util/is-electron";
 import { Skeleton } from "../skeleton";
 import "./_index.scss";
 
@@ -97,10 +94,8 @@ export class ProposalListItem extends Component<Props, State> {
   loadProposalByVoter = () => {
     const { proposal, location } = this.props;
 
-    const params = isElectron()
-      ? location.search.replace("?voter=", "")
-      : new URLSearchParams(location.search);
-    const voterParams = isElectron() ? params || "" : (params as URLSearchParams).get("voter");
+    const params = new URLSearchParams(location.search);
+    const voterParams = params.get("voter");
 
     if (!!voterParams) {
       getProposalVotes(proposal.id, voterParams as string, 1)
@@ -138,7 +133,7 @@ export class ProposalListItem extends Component<Props, State> {
     const remaining = diff < 0 ? 0 : diff;
 
     return loadingSearchResult ? (
-      <Skeleton className="w-100 loadingSearch mb-3 shadow" />
+      <Skeleton className="w-full loadingSearch mb-3 shadow" />
     ) : (
       <div className={_c(`proposal-list-item ${!!votedByVoter ? "voted-by-voter" : ""}`)}>
         <div className="item-content">
